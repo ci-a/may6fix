@@ -75,6 +75,10 @@ public class ServerObject extends UnicastRemoteObject implements Server
 			if (account.Password == Password)
 			{
 				RMIClientListing.put(account.UserID, User);
+
+				// save to disk
+				this.saveDisk("disk.xml");
+				
 				return account;
 			}
 		}
@@ -107,6 +111,11 @@ public class ServerObject extends UnicastRemoteObject implements Server
 				{
 					ChatListing chatlist = group.findChatByID(ChatID);
 					chatlist.addMsg(msg);
+					
+					//save to disk & update listeners
+					this.saveDisk("disk.xml");
+					this.alertUpdate(GroupID);
+					
 					return group;
 				}
 			}
@@ -118,10 +127,14 @@ public class ServerObject extends UnicastRemoteObject implements Server
 	{
 		if (CurrentUserRepository.findUserByID(UserID) != null)
 		{
-		UserData account = CurrentUserRepository.findUserByID(UserID);
-		GroupDataRepository.addGroup(newGroup);
-		account.JoinedGroupIDs.add(newGroup.GroupID);
-		return newGroup;
+			UserData account = CurrentUserRepository.findUserByID(UserID);
+			GroupDataRepository.addGroup(newGroup);
+			account.JoinedGroupIDs.add(newGroup.GroupID);
+
+			// save to disk + new group
+			this.saveDisk("disk.xml");
+			
+			return newGroup;
 		}
 		else
 		{
@@ -142,6 +155,11 @@ public class ServerObject extends UnicastRemoteObject implements Server
 					if (id == GroupID)
 					{
 						group.Roles.add(newRole);
+						
+						//save to disk & update listeners
+						this.saveDisk("disk.xml");
+						this.alertUpdate(GroupID);
+						
 						return group;
 					}
 				}
@@ -163,6 +181,11 @@ public class ServerObject extends UnicastRemoteObject implements Server
 					if (id == GroupID)
 					{
 						group.addChat(newChat);
+						
+						//save to disk & update listeners
+						this.saveDisk("disk.xml");
+						this.alertUpdate(GroupID);
+						
 						return group;
 					}
 				}
@@ -188,6 +211,10 @@ public class ServerObject extends UnicastRemoteObject implements Server
 						{
 							group.addUser(invitedAccount);
 							invitedAccount.JoinedGroupIDs.add(GroupID);
+
+							// save to disk
+							this.saveDisk("disk.xml");
+							
 							return group;
 						}
 					}
@@ -212,6 +239,10 @@ public class ServerObject extends UnicastRemoteObject implements Server
 						boolean results = chat.deleteMsg(MsgID);
 						if (results == true)
 						{
+							//save to disk & update listeners
+							this.saveDisk("disk.xml");
+							this.alertUpdate(GroupID);
+							
 							return group;
 						}
 					}
@@ -232,6 +263,10 @@ public class ServerObject extends UnicastRemoteObject implements Server
 				boolean results = group.deleteChat(ChatID);
 				if (results == true)
 				{
+					//save to disk & update listeners
+					this.saveDisk("disk.xml");
+					this.alertUpdate(GroupID);
+					
 					return group;
 				}
 			}
@@ -246,6 +281,11 @@ public class ServerObject extends UnicastRemoteObject implements Server
 		{
 			GroupData group = GroupDataRepository.findGroupByID(GroupID);
 			GroupDataRepository.deleteGroup(group);
+			
+			//save to disk & update listeners
+			this.saveDisk("disk.xml");
+			this.alertUpdate(GroupID);
+			
 			return true;
 		}
 		return false;
@@ -265,6 +305,11 @@ public class ServerObject extends UnicastRemoteObject implements Server
 					if (role.Name == roleName)
 					{
 						group.Roles.remove(i);
+						
+						//save to disk & update listeners
+						this.saveDisk("disk.xml");
+						this.alertUpdate(GroupID);
+						
 						return group;
 					}
 					i++;
@@ -281,6 +326,10 @@ public class ServerObject extends UnicastRemoteObject implements Server
 		if (user.Password == Password)
 		{
 			CurrentUserRepository.deleteUser(user);
+			
+			// save to disk
+			this.saveDisk("disk.xml");
+			
 			return true;
 		}
 		return false;
@@ -289,6 +338,10 @@ public class ServerObject extends UnicastRemoteObject implements Server
 	public UserData addUser(UserData newUser) throws RemoteException
 	{
 		CurrentUserRepository.addUser(newUser);
+		
+		//save to disk
+		this.saveDisk("disk.xml");
+		
 		return newUser;
 	}
 
@@ -306,6 +359,11 @@ public class ServerObject extends UnicastRemoteObject implements Server
 				ArrayList<Pair> perms = new ArrayList<Pair>();
 				Role nRole = new Role(RoleName, perms);
 				roles.add(nRole);
+				
+				//save to disk & update listeners
+				this.saveDisk("disk.xml");
+				this.alertUpdate(groupID);
+				
 				return group;
 			}
 		}

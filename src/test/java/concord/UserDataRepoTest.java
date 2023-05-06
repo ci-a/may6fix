@@ -71,7 +71,9 @@ class UserDataRepoTest
 				
 		//test to see if remove user works
 		assertEquals(testUserRepo.Users, test);
+		assertEquals(testUserRepo.findUserByName("bot"), dummy);
 		testUserRepo.deleteUser(dummy);
+		assertEquals(testUserRepo.findUserByName("bot"), null);
 		assertEquals(testUserRepo.Users, testNoDummy);
 				
 		//test to see if find user by ID works

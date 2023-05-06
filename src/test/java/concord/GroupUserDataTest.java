@@ -51,6 +51,8 @@ class GroupUserDataTest
 	{
 		//testing to see if perms can be found by checkPerm
 		assertEquals(guTest.checkPerm("changeUsersPerms"), true);
+		assertEquals(guTest.checkPerm("changeGroupName"), true);
+		assertEquals(guTest.checkPerm("controlUserMessaging"), true);
 		assertEquals(guTest.checkPerm("ban"), true);
 		assertEquals(guTest.checkPerm("kick"), true);
 				
