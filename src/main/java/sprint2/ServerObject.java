@@ -31,9 +31,20 @@ public class ServerObject extends UnicastRemoteObject implements Server
 	GroupDataRepo GroupDataRepository = new GroupDataRepo();
 	UserDataRepo CurrentUserRepository = new UserDataRepo();
 	HashMap<Long, ClientObject> RMIClientListing = new HashMap<Long,ClientObject>();
+	boolean changed;
 
 	protected ServerObject() throws RemoteException
 	{
+		XMLDecoder decoder;
+		try
+		{
+			decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream("disk.xml")));
+			GroupDataRepository = (GroupDataRepo)decoder.readObject();
+			CurrentUserRepository = (UserDataRepo)decoder.readObject();
+		} catch (FileNotFoundException e)
+		{
+			decoder = null;
+		}
 	}
 	
 	public void saveDisk(String fileName)
@@ -52,20 +63,6 @@ public class ServerObject extends UnicastRemoteObject implements Server
 		encoder.close();
 	}
 	
-	public void loadDisk(String fileName)
-	{
-		XMLDecoder decoder = null;
-		try 
-		{
-			decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(fileName)));
-		} 
-		catch (FileNotFoundException e) 
-		{
-			System.out.println("file not found");
-		}
-		GroupDataRepository = (GroupDataRepo)decoder.readObject();
-		CurrentUserRepository = (UserDataRepo)decoder.readObject();
-	}
 
 	public UserData login(String Name, String Password, ClientObject User) throws RemoteException
 	{
@@ -393,6 +390,5 @@ public class ServerObject extends UnicastRemoteObject implements Server
 			RMIClientListing.remove(UserID);
 		}
 	}
-
-
+	
 }

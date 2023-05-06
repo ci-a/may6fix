@@ -20,6 +20,7 @@ class ServerObjectTest
 {
 	ServerObject server;
 	ClientObject client;
+	ClientObject mockClient;
 	Registry registry;
 	UserData dummy1;
 	UserData dummy2;
@@ -42,6 +43,9 @@ class ServerObjectTest
 		registry = LocateRegistry.createRegistry(1099);
 		registry.rebind("concord", server);
 		client = new ClientObject(registry);
+		
+		//creating mock
+		mockClient = new ClientObject(registry);
 				
 		//creating dummy users
 		dummyList = new ArrayList<Long>();
@@ -61,7 +65,7 @@ class ServerObjectTest
 		dummy2.DisplayName = "bot2";
 		dummy2.Email = "fake2@email.com";
 		dummy2.Password = "passwordlol2";
-				
+		
 		//adding users
 		assertEquals(client.addUser(dummy1), "add user success");
 		assertEquals(client.addUser(dummy2), "add user success");
@@ -69,10 +73,15 @@ class ServerObjectTest
 				
 		//logging in
 		assertEquals(client.login("falseUser", "falsepassword"), "login failed");
-		assertEquals(client.login("bot", "passwordlol"), "login successful");
 		assertEquals(client.login("bot", "falsepassword"), "login failed");
-				
-				
+		//registering client
+		assertEquals(client.login("bot", "passwordlol"), "login successful");
+		//registering mock
+		assertEquals(mockClient.login("bot2", "passwordlol2"), "login successful");
+		
+		assertEquals(server.RMIClientListing.get(dummy1.UserID), client);
+		assertEquals(server.RMIClientListing.get(dummy2.UserID), mockClient);
+		
 		//make group
 		GroupData group = new GroupData();
 		group.GroupID = 99;
@@ -147,12 +156,6 @@ class ServerObjectTest
 		assertEquals(client.deleteUser(client.User.UserID, "incorrectPW"), "delete user failed");
 		assertEquals(client.deleteUser(client.User.UserID, "passwordlol"), "delete user success");
 				
-		//saving to disk
-		server.saveDisk("disk.xml");
-				
-		//loading from disk
-		server.loadDisk("disk.xml");
-		
 
 	}
 
