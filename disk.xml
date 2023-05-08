@@ -1,5 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <java version="17.0.5" class="java.beans.XMLDecoder">
  <object class="concord.GroupDataRepo"/>
- <object class="concord.UserDataRepo"/>
+ <object class="concord.UserDataRepo" id="UserDataRepo0"/>
+<void class="concord.UserData" method="getField">
+ <string>UserID</string>
+ <void method="set">
+  <object class="concord.UserData" id="UserData0">
+   <void class="concord.UserData" method="getField">
+    <string>JoinedGroupIDs</string>
+    <void method="set">
+     <object idref="UserData0"/>
+     <object class="java.util.ArrayList" id="ArrayList0"/>
+    </void>
+   </void>
+   <void class="concord.UserData" method="getField">
+    <string>Status</string>
+    <void method="set">
+     <object idref="UserData0"/>
+     <int>1</int>
+    </void>
+   </void>
+   <void class="concord.UserData" method="getField">
+    <string>DisplayName</string>
+    <void method="set">
+     <object idref="UserData0"/>
+     <string>bot</string>
+    </void>
+   </void>
+   <void class="concord.UserData" method="getField">
+    <string>Password</string>
+    <void method="set">
+     <object idref="UserData0"/>
+     <string>passwordlol</string>
+    </void>
+   </void>
+   <void class="concord.UserData" method="getField">
+    <string>Email</string>
+    <void method="set">
+     <object idref="UserData0"/>
+     <string>fake@email.com</string>
+    </void>
+   </void>
+  </object>
+  <long>101</long>
+ </void>
+</void>
+<void class="concord.UserDataRepo" id="Field0" method="getField">
+ <string>Users</string>
+ <void id="HashMap0" method="get">
+  <object idref="UserDataRepo0"/>
+  <void method="put">
+   <long>202</long>
+   <object class="concord.UserData" id="UserData1">
+    <void class="concord.UserData" method="getField">
+     <string>UserID</string>
+     <void method="set">
+      <object idref="UserData1"/>
+      <long>202</long>
+     </void>
+    </void>
+    <void class="concord.UserData" method="getField">
+     <string>JoinedGroupIDs</string>
+     <void method="set">
+      <object idref="UserData1"/>
+      <object idref="ArrayList0"/>
+     </void>
+    </void>
+    <void class="concord.UserData" method="getField">
+     <string>Status</string>
+     <void method="set">
+      <object idref="UserData1"/>
+      <int>1</int>
+     </void>
+    </void>
+    <void class="concord.UserData" method="getField">
+     <string>DisplayName</string>
+     <void method="set">
+      <object idref="UserData1"/>
+      <string>bot2</string>
+     </void>
+    </void>
+    <void class="concord.UserData" method="getField">
+     <string>Password</string>
+     <void method="set">
+      <object idref="UserData1"/>
+      <string>passwordlol2</string>
+     </void>
+    </void>
+    <void class="concord.UserData" method="getField">
+     <string>Email</string>
+     <void method="set">
+      <object idref="UserData1"/>
+      <string>fake2@email.com</string>
+     </void>
+    </void>
+   </object>
+  </void>
+  <void method="put">
+   <long>101</long>
+   <object idref="UserData0"/>
+  </void>
+ </void>
+</void>
+<void idref="HashMap0"/>
+<void class="concord.UserDataRepo" id="Field1" method="getField">
+ <string>Names</string>
+ <void id="HashMap1" method="get">
+  <object idref="UserDataRepo0"/>
+  <void method="put">
+   <string>bot</string>
+   <long>101</long>
+  </void>
+  <void method="put">
+   <string>bot2</string>
+   <long>202</long>
+  </void>
+ </void>
+</void>
+<void idref="HashMap1"/>
 </java>

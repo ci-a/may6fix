@@ -126,6 +126,9 @@ class ServerObjectTest
 		assertEquals(client.sendMsg(client.User.UserID, client.Group.GroupID, 300, message), "message send success");
 		assertEquals(client.sendMsg(client.User.UserID, client.Group.GroupID, 1, message), "message send failed");
 		
+		//observer pattern test
+		assertEquals(server.GroupDataRepository.findGroupByID(99), client.Group);
+		
 		//update the group data to all listeners
 		server.alertUpdate(client.Group.GroupID);
 		

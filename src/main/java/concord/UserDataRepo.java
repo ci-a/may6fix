@@ -3,8 +3,8 @@ import java.util.HashMap;
 
 public class UserDataRepo
 {
-	HashMap<Long, UserData> Users = new HashMap<Long,UserData>();
-	HashMap<String, Long> Names = new HashMap<String,Long>();
+	public HashMap<Long, UserData> Users = new HashMap<Long,UserData>();
+	public HashMap<String, Long> Names = new HashMap<String,Long>();
 	
 	public UserData findUserByID(long ID)
 	{
