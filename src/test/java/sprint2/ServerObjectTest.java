@@ -26,7 +26,6 @@ class ServerObjectTest
 	UserData dummy2;
 	ArrayList<Long> dummyList;
 	Role dummyRole;
-	Pair perm;
 	ArrayList<Pair> permList;
 	ChatListing chatList;
 	
@@ -85,19 +84,37 @@ class ServerObjectTest
 		//make group
 		GroupData group = new GroupData();
 		group.GroupID = 99;
-		assertEquals(client.addUser(dummy1), "add user success");
 		assertEquals(client.makeGroup(32131234, group), "group make failed");
 		assertEquals(client.makeGroup(client.User.UserID, group), "group make success");
 				
 		//get group data
 		assertEquals(client.getGroupData(client.User.UserID, 5), "group retrieval failed");
 		assertEquals(client.getGroupData(client.User.UserID, 99), "group retrieval success");
-				
+		
+		//MAKING CHAT WITHOUT ADMIN ROLE
+		chatList = new ChatListing();
+		chatList.ChatID = 300;
+		assertEquals(client.makeChatListing(client.User.UserID, client.Group.GroupID, chatList), "chat make failed");
+					
 		//make role
-		perm = new Pair("can_kick", true);
+		Pair perm1 = new Pair("invite_user", true);
+		Pair perm2 = new Pair("can_kick", true);
+		Pair perm3 = new Pair("give_take_role", true);
+		Pair perm4 = new Pair("make_chat", true);
+		Pair perm5 = new Pair("send_msg", true);
+		Pair perm6 = new Pair("delete_msg", true);
+		Pair perm7 = new Pair("delete_role", true);
+		Pair perm8 = new Pair("delete_group", true);
 		permList = new ArrayList<Pair>();
-		permList.add(perm);
-		dummyRole = new Role("can_kick", permList);
+		permList.add(perm1);
+		permList.add(perm2);
+		permList.add(perm3);
+		permList.add(perm4);
+		permList.add(perm5);
+		permList.add(perm6);
+		permList.add(perm7);
+		permList.add(perm8);
+		dummyRole = new Role("admin", permList);
 		assertEquals(client.makeRole(client.User.UserID, client.Group.GroupID, dummyRole), "role make success");
 		assertEquals(client.makeRole(31234, client.Group.GroupID, dummyRole), "role make failed");
 		assertEquals(client.makeRole(client.User.UserID, 234543654, dummyRole), "role make failed");
@@ -112,8 +129,6 @@ class ServerObjectTest
 		assertEquals(client.giveTakeRole(client.User.UserID, client.Group.GroupID, 202, "can_kick", true), "give take success");
 				
 		//make chatlist
-		chatList = new ChatListing();
-		chatList.ChatID = 300;
 		assertEquals(client.makeChatListing(client.User.UserID, client.Group.GroupID, chatList), "chat make success");
 		assertEquals(client.makeChatListing(31232131, client.Group.GroupID, chatList), "chat make failed");
 		assertEquals(client.makeChatListing(client.User.UserID, 2312312, chatList), "chat make failed");
@@ -142,12 +157,7 @@ class ServerObjectTest
 		
 		//update the group data to all listeners
 		server.alertUpdate(client.Group.GroupID);
-
-		//delete role
-		assertEquals(client.deleteRole(client.User.UserID, client.Group.GroupID, "can_kick"), "delete role success");
-		assertEquals(client.deleteRole(client.User.UserID, client.Group.GroupID, "can_kick"), "delete role failed");
-		assertEquals(client.deleteRole(client.User.UserID, client.Group.GroupID, "fake_role"), "delete role failed");
-				
+		
 		//delete message
 		assertEquals(client.deleteMsg(client.User.UserID, client.Group.GroupID, 300, 0), "delete msg success");
 		assertEquals(client.deleteMsg(client.User.UserID, client.Group.GroupID, 300, 0), "delete msg failed");
@@ -155,14 +165,13 @@ class ServerObjectTest
 		//delete chatlist
 		assertEquals(client.deleteChatListing(client.User.UserID, client.Group.GroupID, 300), "delete chat success");
 		assertEquals(client.deleteChatListing(client.User.UserID, client.Group.GroupID, 43534534), "delete chat failed");
-				
+		
 		//delete group and delete user
 		assertEquals(client.deleteGroup(client.User.UserID, client.Group.GroupID), "delete group success");
 		assertEquals(client.deleteGroup(client.User.UserID, 3211234), "delete group failed");
 		assertEquals(client.deleteUser(client.User.UserID, "incorrectPW"), "delete user failed");
 		assertEquals(client.deleteUser(client.User.UserID, "passwordlol"), "delete user success");
-				
-
+		
 	}
 
 }

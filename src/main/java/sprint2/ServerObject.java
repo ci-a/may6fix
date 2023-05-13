@@ -106,14 +106,17 @@ public class ServerObject extends UnicastRemoteObject implements Server
 			{
 				if (group.findChatByID(ChatID) != null)
 				{
-					ChatListing chatlist = group.findChatByID(ChatID);
-					chatlist.addMsg(msg);
-					
-					//save to disk & update listeners
-					this.saveDisk("disk.xml");
-					this.alertUpdate(GroupID);
-					
-					return group;
+					if (checkPerm(UserID, GroupID, "send_msg") == true)
+					{
+						ChatListing chatlist = group.findChatByID(ChatID);
+						chatlist.addMsg(msg);
+						
+						//save to disk & update listeners
+						this.saveDisk("disk.xml");
+						this.alertUpdate(GroupID);
+						
+						return group;
+					}
 				}
 			}
 		}
@@ -127,6 +130,7 @@ public class ServerObject extends UnicastRemoteObject implements Server
 			UserData account = CurrentUserRepository.findUserByID(UserID);
 			GroupDataRepository.addGroup(newGroup);
 			account.JoinedGroupIDs.add(newGroup.GroupID);
+			newGroup.addUser(account);
 
 			// save to disk + new group
 			this.saveDisk("disk.xml");
@@ -152,11 +156,13 @@ public class ServerObject extends UnicastRemoteObject implements Server
 					if (id == GroupID)
 					{
 						group.Roles.add(newRole);
-						
+						GroupUserData guData = group.findGroupUserByID(UserID);
+						guData.Roles.add(newRole);
+							
 						//save to disk & update listeners
 						this.saveDisk("disk.xml");
 						this.alertUpdate(GroupID);
-						
+							
 						return group;
 					}
 				}
@@ -177,13 +183,16 @@ public class ServerObject extends UnicastRemoteObject implements Server
 				{
 					if (id == GroupID)
 					{
-						group.addChat(newChat);
-						
-						//save to disk & update listeners
-						this.saveDisk("disk.xml");
-						this.alertUpdate(GroupID);
-						
-						return group;
+						if (checkPerm(UserID, GroupID, "make_chat") == true)
+						{
+							group.addChat(newChat);
+							
+							//save to disk & update listeners
+							this.saveDisk("disk.xml");
+							this.alertUpdate(GroupID);
+							
+							return group;
+						}
 					}
 				}
 			}
@@ -206,13 +215,16 @@ public class ServerObject extends UnicastRemoteObject implements Server
 					{
 						if (id == GroupID)
 						{
-							group.addUser(invitedAccount);
-							invitedAccount.JoinedGroupIDs.add(GroupID);
-
-							// save to disk
-							this.saveDisk("disk.xml");
-							
-							return group;
+							if (checkPerm(UserID, GroupID, "invite_user") == true)
+							{
+								group.addUser(invitedAccount);
+								invitedAccount.JoinedGroupIDs.add(GroupID);
+	
+								// save to disk
+								this.saveDisk("disk.xml");
+								
+								return group;
+							}
 						}
 					}
 				}
@@ -233,14 +245,17 @@ public class ServerObject extends UnicastRemoteObject implements Server
 				{
 					if (chat == group.findChatByID(ChatID))
 					{
-						boolean results = chat.deleteMsg(MsgID);
-						if (results == true)
+						if (checkPerm(UserID, GroupID, "delete_msg") == true)
 						{
-							//save to disk & update listeners
-							this.saveDisk("disk.xml");
-							this.alertUpdate(GroupID);
-							
-							return group;
+							boolean results = chat.deleteMsg(MsgID);
+							if (results == true)
+							{
+								//save to disk & update listeners
+								this.saveDisk("disk.xml");
+								this.alertUpdate(GroupID);
+								
+								return group;
+							}
 						}
 					}
 				}
@@ -257,14 +272,17 @@ public class ServerObject extends UnicastRemoteObject implements Server
 		{
 			if (id == GroupID)
 			{
-				boolean results = group.deleteChat(ChatID);
-				if (results == true)
+				if (checkPerm(UserID, GroupID, "send_msg") == true)
 				{
-					//save to disk & update listeners
-					this.saveDisk("disk.xml");
-					this.alertUpdate(GroupID);
-					
-					return group;
+					boolean results = group.deleteChat(ChatID);
+					if (results == true)
+					{
+						//save to disk & update listeners
+						this.saveDisk("disk.xml");
+						this.alertUpdate(GroupID);
+						
+						return group;
+					}
 				}
 			}
 		}
@@ -276,14 +294,17 @@ public class ServerObject extends UnicastRemoteObject implements Server
 		//UserData account = CurrentUserRepository.findUserByID(UserID);
 		if (GroupDataRepository.findGroupByID(GroupID) != null)
 		{
-			GroupData group = GroupDataRepository.findGroupByID(GroupID);
-			GroupDataRepository.deleteGroup(group);
-			
-			//save to disk & update listeners
-			this.saveDisk("disk.xml");
-			this.alertUpdate(GroupID);
-			
-			return true;
+			if (checkPerm(UserID, GroupID, "delete_group") == true)
+			{
+				GroupData group = GroupDataRepository.findGroupByID(GroupID);
+				GroupDataRepository.deleteGroup(group);
+				
+				//save to disk & update listeners
+				this.saveDisk("disk.xml");
+				this.alertUpdate(GroupID);
+				
+				return true;
+			}
 		}
 		return false;
 	}
@@ -301,13 +322,16 @@ public class ServerObject extends UnicastRemoteObject implements Server
 				{
 					if (role.Name == roleName)
 					{
-						group.Roles.remove(i);
-						
-						//save to disk & update listeners
-						this.saveDisk("disk.xml");
-						this.alertUpdate(GroupID);
-						
-						return group;
+						if (checkPerm(UserID, GroupID, "delete_role") == true)
+						{
+							group.Roles.remove(i);
+							
+							//save to disk & update listeners
+							this.saveDisk("disk.xml");
+							this.alertUpdate(GroupID);
+							
+							return group;
+						}
 					}
 					i++;
 				}
@@ -334,6 +358,7 @@ public class ServerObject extends UnicastRemoteObject implements Server
 
 	public UserData addUser(UserData newUser) throws RemoteException
 	{
+		
 		CurrentUserRepository.addUser(newUser);
 		
 		//save to disk
@@ -342,26 +367,29 @@ public class ServerObject extends UnicastRemoteObject implements Server
 		return newUser;
 	}
 
-	public GroupData giveTakeRole(long UserID, long groupID, long TargetUser, String RoleName, boolean giveOrTake)
+	public GroupData giveTakeRole(long UserID, long GroupID, long TargetUser, String RoleName, boolean giveOrTake)
 			throws RemoteException
 	{
 		GroupUserData guData = null;
-		GroupData group = GroupDataRepository.findGroupByID(groupID);
+		GroupData group = GroupDataRepository.findGroupByID(GroupID);
 		if (group.findGroupUserByID(TargetUser) != null)
 		{
 			guData = group.findGroupUserByID(TargetUser);
 			if (giveOrTake == true)
 			{
-				ArrayList<Role> roles = guData.Roles;
-				ArrayList<Pair> perms = new ArrayList<Pair>();
-				Role nRole = new Role(RoleName, perms);
-				roles.add(nRole);
-				
-				//save to disk & update listeners
-				this.saveDisk("disk.xml");
-				this.alertUpdate(groupID);
-				
-				return group;
+				if (checkPerm(UserID, GroupID, "give_take_role") == true)
+				{
+					ArrayList<Role> roles = guData.Roles;
+					ArrayList<Pair> perms = new ArrayList<Pair>();
+					Role nRole = new Role(RoleName, perms);
+					roles.add(nRole);
+					
+					//save to disk & update listeners
+					this.saveDisk("disk.xml");
+					this.alertUpdate(GroupID);
+					
+					return group;
+				}
 			}
 		}
 		return null;
@@ -389,6 +417,20 @@ public class ServerObject extends UnicastRemoteObject implements Server
 		{
 			RMIClientListing.remove(UserID);
 		}
+	}
+	
+	public boolean checkPerm(long UserID, long GroupID, String Perm)
+	{
+		GroupData group = GroupDataRepository.findGroupByID(GroupID);
+		if (group != null)
+		{
+			GroupUserData groupUser = group.findGroupUserByID(UserID);
+			if (groupUser != null)
+			{
+				return groupUser.checkPerm(Perm);
+			}
+		}
+		return false;
 	}
 	
 }

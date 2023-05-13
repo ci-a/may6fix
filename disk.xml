@@ -53,19 +53,8 @@
  </void>
 </void>
 <void class="concord.UserDataRepo" id="Field0" method="getField">
- <string>Users</string>
- <void id="HashMap0" method="get">
-  <object idref="UserDataRepo0"/>
-  <void method="put">
-   <long>202</long>
-   <object idref="UserData0"/>
-  </void>
- </void>
-</void>
-<void idref="HashMap0"/>
-<void class="concord.UserDataRepo" id="Field1" method="getField">
  <string>Names</string>
- <void id="HashMap1" method="get">
+ <void id="HashMap0" method="get">
   <object idref="UserDataRepo0"/>
   <void method="put">
    <string>bot</string>
@@ -74,6 +63,17 @@
   <void method="put">
    <string>bot2</string>
    <long>202</long>
+  </void>
+ </void>
+</void>
+<void idref="HashMap0"/>
+<void class="concord.UserDataRepo" id="Field1" method="getField">
+ <string>Users</string>
+ <void id="HashMap1" method="get">
+  <object idref="UserDataRepo0"/>
+  <void method="put">
+   <long>202</long>
+   <object idref="UserData0"/>
   </void>
  </void>
 </void>
