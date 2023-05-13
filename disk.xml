@@ -10,7 +10,14 @@
     <string>JoinedGroupIDs</string>
     <void method="set">
      <object idref="UserData0"/>
-     <object class="java.util.ArrayList" id="ArrayList0"/>
+     <object class="java.util.ArrayList">
+      <void method="add">
+       <long>99</long>
+      </void>
+      <void method="add">
+       <long>99</long>
+      </void>
+     </object>
     </void>
    </void>
    <void class="concord.UserData" method="getField">
@@ -24,25 +31,25 @@
     <string>DisplayName</string>
     <void method="set">
      <object idref="UserData0"/>
-     <string>bot</string>
+     <string>bot2</string>
     </void>
    </void>
    <void class="concord.UserData" method="getField">
     <string>Password</string>
     <void method="set">
      <object idref="UserData0"/>
-     <string>passwordlol</string>
+     <string>passwordlol2</string>
     </void>
    </void>
    <void class="concord.UserData" method="getField">
     <string>Email</string>
     <void method="set">
      <object idref="UserData0"/>
-     <string>fake@email.com</string>
+     <string>fake2@email.com</string>
     </void>
    </void>
   </object>
-  <long>101</long>
+  <long>202</long>
  </void>
 </void>
 <void class="concord.UserDataRepo" id="Field0" method="getField">
@@ -51,53 +58,6 @@
   <object idref="UserDataRepo0"/>
   <void method="put">
    <long>202</long>
-   <object class="concord.UserData" id="UserData1">
-    <void class="concord.UserData" method="getField">
-     <string>UserID</string>
-     <void method="set">
-      <object idref="UserData1"/>
-      <long>202</long>
-     </void>
-    </void>
-    <void class="concord.UserData" method="getField">
-     <string>JoinedGroupIDs</string>
-     <void method="set">
-      <object idref="UserData1"/>
-      <object idref="ArrayList0"/>
-     </void>
-    </void>
-    <void class="concord.UserData" method="getField">
-     <string>Status</string>
-     <void method="set">
-      <object idref="UserData1"/>
-      <int>1</int>
-     </void>
-    </void>
-    <void class="concord.UserData" method="getField">
-     <string>DisplayName</string>
-     <void method="set">
-      <object idref="UserData1"/>
-      <string>bot2</string>
-     </void>
-    </void>
-    <void class="concord.UserData" method="getField">
-     <string>Password</string>
-     <void method="set">
-      <object idref="UserData1"/>
-      <string>passwordlol2</string>
-     </void>
-    </void>
-    <void class="concord.UserData" method="getField">
-     <string>Email</string>
-     <void method="set">
-      <object idref="UserData1"/>
-      <string>fake2@email.com</string>
-     </void>
-    </void>
-   </object>
-  </void>
-  <void method="put">
-   <long>101</long>
    <object idref="UserData0"/>
   </void>
  </void>

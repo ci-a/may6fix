@@ -84,8 +84,11 @@ class XMLTest
 		registry = LocateRegistry.createRegistry(1089);
 		registry.rebind("concord", server2);
 		client2 = new ClientObject(registry);
+		
 		System.out.println(server2.CurrentUserRepository.Users);
 		System.out.println(server2.CurrentUserRepository.Names);
+		
+		//setting values to variables
 		long server1Bot1 = server1.CurrentUserRepository.Names.get("bot");
 		long server2Bot1 = server2.CurrentUserRepository.Names.get("bot");
 		long server1Bot2 = server1.CurrentUserRepository.Names.get("bot2");

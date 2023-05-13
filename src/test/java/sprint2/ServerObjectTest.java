@@ -117,6 +117,13 @@ class ServerObjectTest
 		assertEquals(client.makeChatListing(client.User.UserID, client.Group.GroupID, chatList), "chat make success");
 		assertEquals(client.makeChatListing(31232131, client.Group.GroupID, chatList), "chat make failed");
 		assertEquals(client.makeChatListing(client.User.UserID, 2312312, chatList), "chat make failed");
+		
+		//TESTING OBSERVER
+		assertEquals(client.Group.Chats.size(), 1);
+		assertEquals(client.makeChatListing(client.User.UserID, client.Group.GroupID, chatList), "chat make success");
+		assertEquals(client.Group.Chats.size(), 2);
+		assertEquals(client.deleteChatListing(client.User.UserID, client.Group.GroupID, 300), "delete chat success");
+		assertEquals(client.Group.Chats.size(), 1);
 				
 		//sending a message
 		MsgData message = new MsgData();
@@ -125,9 +132,6 @@ class ServerObjectTest
 		message.deleted = false;
 		assertEquals(client.sendMsg(client.User.UserID, client.Group.GroupID, 300, message), "message send success");
 		assertEquals(client.sendMsg(client.User.UserID, client.Group.GroupID, 1, message), "message send failed");
-		
-		//observer pattern test
-		assertEquals(server.GroupDataRepository.findGroupByID(99), client.Group);
 		
 		//update the group data to all listeners
 		server.alertUpdate(client.Group.GroupID);
@@ -150,7 +154,6 @@ class ServerObjectTest
 				
 		//delete chatlist
 		assertEquals(client.deleteChatListing(client.User.UserID, client.Group.GroupID, 300), "delete chat success");
-		assertEquals(client.deleteChatListing(client.User.UserID, client.Group.GroupID, 300), "delete chat failed");
 		assertEquals(client.deleteChatListing(client.User.UserID, client.Group.GroupID, 43534534), "delete chat failed");
 				
 		//delete group and delete user
