@@ -166,6 +166,7 @@ class ServerObjectTest
 		message.Text = "hi";
 		message.deleted = false;
 		assertEquals(client.sendMsg(client.User.UserID, client.Group.GroupID, 300, message), "message send success");
+		assertEquals(client.sendDelayedMsg(client.User.UserID, client.Group.GroupID, 300, message, 1), "message send success");
 		assertEquals(client.sendMsg(client.User.UserID, client.Group.GroupID, 1, message), "message send failed");
 		
 		//update the group data to all listeners

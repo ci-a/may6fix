@@ -11,6 +11,7 @@ import concord.GroupData;
 import concord.MsgData;
 import concord.Role;
 import concord.UserData;
+import sprint4.DelayedMsg;
 
 public class ClientObject implements Client, Serializable
 {
@@ -89,7 +90,27 @@ public class ClientObject implements Client, Serializable
 			e.printStackTrace();                                         
 		}
 		return "message send failed";
-	}  
+	} 
+	
+	public String sendDelayedMsg(long UserId, long GroupId, long ChatId, MsgData msg, long seconds) throws RemoteException 
+	{
+		try 
+		{          
+			DelayedMsg delayedMsgObj = new DelayedMsg(UserId, GroupId, ChatId, msg, seconds, this);
+			delayedMsgObj.SendMsg();
+			GroupData dummyGroup = ServerProxy.getGroupData(UserId, GroupId);
+			if(dummyGroup != null)
+			{
+				return "message send success";
+			}
+		} 
+		catch (RemoteException e) 
+		{                                    
+			// TODO Auto-generated catch block                           
+			e.printStackTrace();                                         
+		}
+		return "message send failed";
+	} 
 	
 	public String makeGroup(long UserId, GroupData newGroup) throws RemoteException 
 	{

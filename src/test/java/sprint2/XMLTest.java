@@ -79,11 +79,8 @@ class XMLTest
 		System.out.println(server1.CurrentUserRepository.Users);
 		System.out.println(server1.CurrentUserRepository.Names);
 		
-		//server 2
+		//creating server 2 and checking if data is identical
 		server2 = new ServerObject();
-		registry = LocateRegistry.createRegistry(1089);
-		registry.rebind("concord", server2);
-		client2 = new ClientObject(registry);
 		
 		System.out.println(server2.CurrentUserRepository.Users);
 		System.out.println(server2.CurrentUserRepository.Names);
