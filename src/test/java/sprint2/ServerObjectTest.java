@@ -25,8 +25,10 @@ class ServerObjectTest
 	UserData dummy1;
 	UserData dummy2;
 	ArrayList<Long> dummyList;
-	Role dummyRole;
+	Role adminRole;
+	Role defaultRole;
 	ArrayList<Pair> permList;
+	ArrayList<Pair> defaultpermList;
 	ChatListing chatList;
 	
 	@BeforeEach
@@ -91,12 +93,19 @@ class ServerObjectTest
 		assertEquals(client.getGroupData(client.User.UserID, 5), "group retrieval failed");
 		assertEquals(client.getGroupData(client.User.UserID, 99), "group retrieval success");
 		
-		//MAKING CHAT WITHOUT ADMIN ROLE
+		//TRYING METHODS WITHOUT ADMIN ROLE ***
 		chatList = new ChatListing();
 		chatList.ChatID = 300;
+		MsgData message1 = new MsgData();
+		message1.MsgIndex = 0;
+		message1.Text = "hi";
+		message1.deleted = false;
 		assertEquals(client.makeChatListing(client.User.UserID, client.Group.GroupID, chatList), "chat make failed");
-					
-		//make role
+		assertEquals(client.inviteUser(client.User.UserID, client.Group.GroupID, dummy2.UserID), "invite user failed");
+		assertEquals(client.giveTakeRole(client.User.UserID, client.Group.GroupID, 202, "can_kick", true), "give take failed");
+		assertEquals(client.sendMsg(client.User.UserID, client.Group.GroupID, 300, message1), "message send failed");
+		
+		//test make role ***
 		Pair perm1 = new Pair("invite_user", true);
 		Pair perm2 = new Pair("can_kick", true);
 		Pair perm3 = new Pair("give_take_role", true);
@@ -105,6 +114,7 @@ class ServerObjectTest
 		Pair perm6 = new Pair("delete_msg", true);
 		Pair perm7 = new Pair("delete_role", true);
 		Pair perm8 = new Pair("delete_group", true);
+		
 		permList = new ArrayList<Pair>();
 		permList.add(perm1);
 		permList.add(perm2);
@@ -114,11 +124,21 @@ class ServerObjectTest
 		permList.add(perm6);
 		permList.add(perm7);
 		permList.add(perm8);
-		dummyRole = new Role("admin", permList);
-		assertEquals(client.makeRole(client.User.UserID, client.Group.GroupID, dummyRole), "role make success");
-		assertEquals(client.makeRole(31234, client.Group.GroupID, dummyRole), "role make failed");
-		assertEquals(client.makeRole(client.User.UserID, 234543654, dummyRole), "role make failed");
-				
+		adminRole = new Role("admin", permList);
+		
+		defaultpermList = new ArrayList<Pair>();
+		defaultpermList.add(perm5);
+		defaultpermList.add(perm6);
+		defaultRole = new Role("default", defaultpermList);
+		
+		assertEquals(client.makeRole(client.User.UserID, client.Group.GroupID, adminRole), "role make success");
+		assertEquals(client.makeRole(client.User.UserID, client.Group.GroupID, defaultRole), "role make success");
+		assertEquals(client.makeRole(31234, client.Group.GroupID, adminRole), "role make failed");
+		assertEquals(client.makeRole(client.User.UserID, 234543654, adminRole), "role make failed");
+		
+
+		//the following actions from here and below require permissions
+		
 		//inviting dummy2
 		assertEquals(client.inviteUser(client.User.UserID, client.Group.GroupID, dummy2.UserID), "invite user success");
 		assertEquals(client.inviteUser(34254366, client.Group.GroupID, dummy2.UserID), "invite user failed");
@@ -133,7 +153,7 @@ class ServerObjectTest
 		assertEquals(client.makeChatListing(31232131, client.Group.GroupID, chatList), "chat make failed");
 		assertEquals(client.makeChatListing(client.User.UserID, 2312312, chatList), "chat make failed");
 		
-		//TESTING OBSERVER
+		//TESTING OBSERVER ***
 		assertEquals(client.Group.Chats.size(), 1);
 		assertEquals(client.makeChatListing(client.User.UserID, client.Group.GroupID, chatList), "chat make success");
 		assertEquals(client.Group.Chats.size(), 2);
@@ -165,6 +185,9 @@ class ServerObjectTest
 		//delete chatlist
 		assertEquals(client.deleteChatListing(client.User.UserID, client.Group.GroupID, 300), "delete chat success");
 		assertEquals(client.deleteChatListing(client.User.UserID, client.Group.GroupID, 43534534), "delete chat failed");
+		
+		//deleting the default role, keeping admin role so I can delete the group
+		assertEquals(client.deleteRole(client.User.UserID, client.Group.GroupID, "default"), "delete role success");
 		
 		//delete group and delete user
 		assertEquals(client.deleteGroup(client.User.UserID, client.Group.GroupID), "delete group success");
