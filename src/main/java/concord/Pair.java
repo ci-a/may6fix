@@ -6,6 +6,11 @@ public class Pair
 	public String PermName;
 	public boolean set;
 	
+	public Pair()
+	{
+		
+	}
+	
 	public Pair(String PermName, boolean set)
 	{
 		this.PermName = PermName;

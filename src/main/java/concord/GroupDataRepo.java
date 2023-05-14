@@ -3,7 +3,7 @@ import java.util.HashMap;
 
 public class GroupDataRepo extends GroupData
 {
-	HashMap<Long,GroupData> Groups = new HashMap<Long, GroupData>();
+	public HashMap<Long,GroupData> Groups = new HashMap<Long, GroupData>();
 	
 	public GroupData findGroupByID(long ID)
 	{

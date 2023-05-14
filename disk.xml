@@ -1,111 +1,361 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <java version="17.0.5" class="java.beans.XMLDecoder">
- <object class="concord.GroupDataRepo"/>
+ <object class="concord.GroupDataRepo" id="GroupDataRepo0"/>
  <object class="concord.UserDataRepo" id="UserDataRepo0"/>
-<void class="concord.UserDataRepo" id="Field0" method="getField">
- <string>Users</string>
- <void id="HashMap0" method="get">
-  <object idref="UserDataRepo0"/>
-  <void method="put">
-   <long>202</long>
-   <object class="concord.UserData" id="UserData0">
-    <void class="concord.UserData" method="getField">
-     <string>UserID</string>
-     <void method="set">
-      <object idref="UserData0"/>
-      <long>202</long>
-     </void>
+<void class="concord.GroupData" id="Field0" method="getField">
+ <string>Chats</string>
+ <void id="ArrayList0" method="get">
+  <object class="concord.GroupData" id="GroupData0">
+   <void class="concord.GroupData" method="getField">
+    <string>GroupID</string>
+    <void method="set">
+     <object idref="GroupData0"/>
+     <long>99</long>
     </void>
-    <void class="concord.UserData" method="getField">
-     <string>JoinedGroupIDs</string>
+   </void>
+  </object>
+  <void method="add">
+   <object class="concord.ChatListing" id="ChatListing0">
+    <void class="concord.ChatListing" method="getField">
+     <string>ChatID</string>
      <void method="set">
-      <object idref="UserData0"/>
-      <object class="java.util.ArrayList" id="ArrayList0"/>
-     </void>
-    </void>
-    <void class="concord.UserData" method="getField">
-     <string>Status</string>
-     <void method="set">
-      <object idref="UserData0"/>
-      <int>1</int>
-     </void>
-    </void>
-    <void class="concord.UserData" method="getField">
-     <string>DisplayName</string>
-     <void method="set">
-      <object idref="UserData0"/>
-      <string>bot2</string>
-     </void>
-    </void>
-    <void class="concord.UserData" method="getField">
-     <string>Password</string>
-     <void method="set">
-      <object idref="UserData0"/>
-      <string>passwordlol2</string>
-     </void>
-    </void>
-    <void class="concord.UserData" method="getField">
-     <string>Email</string>
-     <void method="set">
-      <object idref="UserData0"/>
-      <string>fake2@email.com</string>
-     </void>
-    </void>
-   </object>
-  </void>
-  <void method="put">
-   <long>101</long>
-   <object class="concord.UserData" id="UserData1">
-    <void class="concord.UserData" method="getField">
-     <string>UserID</string>
-     <void method="set">
-      <object idref="UserData1"/>
-      <long>101</long>
-     </void>
-    </void>
-    <void class="concord.UserData" method="getField">
-     <string>JoinedGroupIDs</string>
-     <void method="set">
-      <object idref="UserData1"/>
-      <object idref="ArrayList0"/>
-     </void>
-    </void>
-    <void class="concord.UserData" method="getField">
-     <string>Status</string>
-     <void method="set">
-      <object idref="UserData1"/>
-      <int>1</int>
-     </void>
-    </void>
-    <void class="concord.UserData" method="getField">
-     <string>DisplayName</string>
-     <void method="set">
-      <object idref="UserData1"/>
-      <string>bot</string>
-     </void>
-    </void>
-    <void class="concord.UserData" method="getField">
-     <string>Password</string>
-     <void method="set">
-      <object idref="UserData1"/>
-      <string>passwordlol</string>
-     </void>
-    </void>
-    <void class="concord.UserData" method="getField">
-     <string>Email</string>
-     <void method="set">
-      <object idref="UserData1"/>
-      <string>fake@email.com</string>
+      <object idref="ChatListing0"/>
+      <long>300</long>
      </void>
     </void>
    </object>
   </void>
  </void>
 </void>
+<void idref="ArrayList0"/>
+<void class="concord.Pair" method="getField">
+ <string>PermName</string>
+ <void method="set">
+  <object class="concord.Pair" id="Pair0">
+   <void class="concord.Pair" method="getField">
+    <string>set</string>
+    <void method="set">
+     <object idref="Pair0"/>
+     <boolean>true</boolean>
+    </void>
+   </void>
+  </object>
+  <string>invite_user</string>
+ </void>
+</void>
+<void class="java.util.ArrayList" id="ArrayList1">
+ <void method="add">
+  <long>99</long>
+ </void>
+</void>
+<void class="concord.UserData" method="getField">
+ <string>UserID</string>
+ <void method="set">
+  <object class="concord.UserData" id="UserData0">
+   <void class="concord.UserData" method="getField">
+    <string>JoinedGroupIDs</string>
+    <void method="set">
+     <object idref="UserData0"/>
+     <object idref="ArrayList1"/>
+    </void>
+   </void>
+   <void class="concord.UserData" method="getField">
+    <string>Status</string>
+    <void method="set">
+     <object idref="UserData0"/>
+     <int>1</int>
+    </void>
+   </void>
+   <void class="concord.UserData" method="getField">
+    <string>DisplayName</string>
+    <void method="set">
+     <object idref="UserData0"/>
+     <string>bot</string>
+    </void>
+   </void>
+   <void class="concord.UserData" method="getField">
+    <string>Password</string>
+    <void method="set">
+     <object idref="UserData0"/>
+     <string>passwordlol</string>
+    </void>
+   </void>
+   <void class="concord.UserData" method="getField">
+    <string>Email</string>
+    <void method="set">
+     <object idref="UserData0"/>
+     <string>fake@email.com</string>
+    </void>
+   </void>
+  </object>
+  <long>101</long>
+ </void>
+</void>
+<void class="java.util.ArrayList" id="ArrayList2">
+ <void method="add">
+  <object class="concord.Pair" id="Pair1">
+   <void class="concord.Pair" method="getField">
+    <string>PermName</string>
+    <void method="set">
+     <object idref="Pair1"/>
+     <string>can_kick</string>
+    </void>
+   </void>
+   <void class="concord.Pair" method="getField">
+    <string>set</string>
+    <void method="set">
+     <object idref="Pair1"/>
+     <boolean>true</boolean>
+    </void>
+   </void>
+  </object>
+ </void>
+ <void method="add">
+  <object class="concord.Pair" id="Pair2">
+   <void class="concord.Pair" method="getField">
+    <string>PermName</string>
+    <void method="set">
+     <object idref="Pair2"/>
+     <string>give_take_role</string>
+    </void>
+   </void>
+   <void class="concord.Pair" method="getField">
+    <string>set</string>
+    <void method="set">
+     <object idref="Pair2"/>
+     <boolean>true</boolean>
+    </void>
+   </void>
+  </object>
+ </void>
+ <void method="add">
+  <object class="concord.Pair" id="Pair3">
+   <void class="concord.Pair" method="getField">
+    <string>PermName</string>
+    <void method="set">
+     <object idref="Pair3"/>
+     <string>make_chat</string>
+    </void>
+   </void>
+   <void class="concord.Pair" method="getField">
+    <string>set</string>
+    <void method="set">
+     <object idref="Pair3"/>
+     <boolean>true</boolean>
+    </void>
+   </void>
+  </object>
+ </void>
+ <void method="add">
+  <object class="concord.Pair" id="Pair4">
+   <void class="concord.Pair" method="getField">
+    <string>PermName</string>
+    <void method="set">
+     <object idref="Pair4"/>
+     <string>send_msg</string>
+    </void>
+   </void>
+   <void class="concord.Pair" method="getField">
+    <string>set</string>
+    <void method="set">
+     <object idref="Pair4"/>
+     <boolean>true</boolean>
+    </void>
+   </void>
+  </object>
+ </void>
+ <void method="add">
+  <object class="concord.Pair" id="Pair5">
+   <void class="concord.Pair" method="getField">
+    <string>PermName</string>
+    <void method="set">
+     <object idref="Pair5"/>
+     <string>delete_msg</string>
+    </void>
+   </void>
+   <void class="concord.Pair" method="getField">
+    <string>set</string>
+    <void method="set">
+     <object idref="Pair5"/>
+     <boolean>true</boolean>
+    </void>
+   </void>
+  </object>
+ </void>
+ <void method="add">
+  <object class="concord.Pair" id="Pair6">
+   <void class="concord.Pair" method="getField">
+    <string>PermName</string>
+    <void method="set">
+     <object idref="Pair6"/>
+     <string>delete_role</string>
+    </void>
+   </void>
+   <void class="concord.Pair" method="getField">
+    <string>set</string>
+    <void method="set">
+     <object idref="Pair6"/>
+     <boolean>true</boolean>
+    </void>
+   </void>
+  </object>
+ </void>
+ <void method="add">
+  <object class="concord.Pair" id="Pair7">
+   <void class="concord.Pair" method="getField">
+    <string>PermName</string>
+    <void method="set">
+     <object idref="Pair7"/>
+     <string>delete_group</string>
+    </void>
+   </void>
+   <void class="concord.Pair" method="getField">
+    <string>set</string>
+    <void method="set">
+     <object idref="Pair7"/>
+     <boolean>true</boolean>
+    </void>
+   </void>
+  </object>
+ </void>
+ <void method="add">
+  <object idref="Pair0"/>
+ </void>
+</void>
+<void class="concord.UserData" method="getField">
+ <string>UserID</string>
+ <void method="set">
+  <object class="concord.UserData" id="UserData1">
+   <void class="concord.UserData" method="getField">
+    <string>JoinedGroupIDs</string>
+    <void method="set">
+     <object idref="UserData1"/>
+     <object idref="ArrayList1"/>
+    </void>
+   </void>
+   <void class="concord.UserData" method="getField">
+    <string>Status</string>
+    <void method="set">
+     <object idref="UserData1"/>
+     <int>1</int>
+    </void>
+   </void>
+   <void class="concord.UserData" method="getField">
+    <string>DisplayName</string>
+    <void method="set">
+     <object idref="UserData1"/>
+     <string>bot2</string>
+    </void>
+   </void>
+   <void class="concord.UserData" method="getField">
+    <string>Password</string>
+    <void method="set">
+     <object idref="UserData1"/>
+     <string>passwordlol2</string>
+    </void>
+   </void>
+   <void class="concord.UserData" method="getField">
+    <string>Email</string>
+    <void method="set">
+     <object idref="UserData1"/>
+     <string>fake2@email.com</string>
+    </void>
+   </void>
+  </object>
+  <long>202</long>
+ </void>
+</void>
+<void class="concord.GroupUserData" id="Field1" method="getField">
+ <string>Roles</string>
+ <void id="ArrayList3" method="get">
+  <object class="concord.GroupUserData" id="GroupUserData0"/>
+  <void method="add">
+   <object class="concord.Role" id="Role0">
+    <void class="concord.Role" method="getField">
+     <string>Name</string>
+     <void method="set">
+      <object idref="Role0"/>
+      <string>admin</string>
+     </void>
+    </void>
+    <void class="concord.Role" method="getField">
+     <string>Perms</string>
+     <void method="set">
+      <object idref="Role0"/>
+      <object idref="ArrayList2"/>
+     </void>
+    </void>
+   </object>
+  </void>
+ </void>
+</void>
+<void idref="ArrayList3"/>
+<void class="concord.GroupData" id="Field2" method="getField">
+ <string>Users</string>
+ <void id="ArrayList4" method="get">
+  <object idref="GroupData0"/>
+  <void method="add">
+   <object idref="GroupUserData0"/>
+  </void>
+ </void>
+</void>
+<void idref="ArrayList4"/>
+<void class="concord.UserDataRepo" id="Field3" method="getField">
+ <string>Users</string>
+ <void id="HashMap0" method="get">
+  <object idref="UserDataRepo0"/>
+  <void method="put">
+   <long>202</long>
+   <object idref="UserData1"/>
+  </void>
+  <void method="put">
+   <long>101</long>
+   <object idref="UserData0"/>
+  </void>
+ </void>
+</void>
 <void idref="HashMap0"/>
-<void class="concord.UserDataRepo" id="Field1" method="getField">
- <string>Names</string>
+<void class="concord.GroupDataRepo" id="Field4" method="getField">
+ <string>Groups</string>
  <void id="HashMap1" method="get">
+  <object idref="GroupDataRepo0"/>
+  <void method="put">
+   <long>99</long>
+   <object idref="GroupData0"/>
+  </void>
+ </void>
+</void>
+<void idref="HashMap1"/>
+<void class="concord.MsgData" method="getField">
+ <string>Text</string>
+ <void method="set">
+  <object class="concord.MsgData" id="MsgData0"/>
+  <string>hi</string>
+ </void>
+</void>
+<void class="concord.GroupData" id="Field5" method="getField">
+ <string>Roles</string>
+ <void id="ArrayList5" method="get">
+  <object idref="GroupData0"/>
+  <void method="add">
+   <object idref="Role0"/>
+  </void>
+ </void>
+</void>
+<void idref="ArrayList5"/>
+<void class="concord.ChatListing" id="Field6" method="getField">
+ <string>Chat</string>
+ <void id="ArrayList6" method="get">
+  <object idref="ChatListing0"/>
+  <void method="add">
+   <object idref="MsgData0"/>
+  </void>
+ </void>
+</void>
+<void idref="ArrayList6"/>
+<void class="concord.UserDataRepo" id="Field7" method="getField">
+ <string>Names</string>
+ <void id="HashMap2" method="get">
   <object idref="UserDataRepo0"/>
   <void method="put">
    <string>bot</string>
@@ -117,5 +367,5 @@
   </void>
  </void>
 </void>
-<void idref="HashMap1"/>
+<void idref="HashMap2"/>
 </java>
